@@ -4,6 +4,7 @@ package GCS.GCS_Etudiant.controllers;
 import GCS.GCS_Etudiant.entites.Cours;
 import GCS.GCS_Etudiant.entites.Division;
 import GCS.GCS_Etudiant.entites.Etudiant;
+import GCS.GCS_Etudiant.entites.EtudiantResponse;
 import GCS.GCS_Etudiant.repository.EtudiantRepository;
 import GCS.GCS_Etudiant.services.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +16,29 @@ import java.util.List;
 @RequestMapping("/api/Etudiants/")
 public class EtudiantControllers {
 
-    private final EtudiantRepository etudiantRepository;
+    private  EtudiantRepository etudiantRepository;
+    private EtudiantService  etudiantService;
 
     @Autowired
     public EtudiantControllers(EtudiantRepository etudiantRepository, EtudiantService etudiantService) {
         this.etudiantRepository = etudiantRepository;
     }
 
-    @PostMapping("/Etu")
+    @PostMapping("/Nouvel")
     public Etudiant createEtudiant(@RequestBody Etudiant etudiant) {
         return etudiantRepository.save(etudiant);
     }
+    @GetMapping
+    public List<EtudiantResponse> GetAllEtudiants(){
+        return etudiantService.findAll();
+    }
+
+
+    @GetMapping
+    public List<EtudiantResponse> findEtudiantByID(Long id) throws Exception {
+        return (List<EtudiantResponse>) etudiantService.findEtudiantByID(id);
+    }
+
 
 
 }

@@ -1,10 +1,19 @@
 package GCS.GCS_Payement.entites;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
+@Table(name = "Etudiant")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
 public class Etudiant {
 
     @Id
