@@ -33,4 +33,12 @@ public class Etudiant {
             inverseJoinColumns = @JoinColumn(name = "division_id")
     )
     private List<Division> divisions;
+
+    @ManyToMany
+    @JoinTable(
+            name = "etudiant_cours",
+            joinColumns = @JoinColumn(name = "etudiant_id"),
+            inverseJoinColumns = @JoinColumn(name = "cours_id")
+    )
+    private List<Cours> cours;
 }

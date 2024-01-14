@@ -15,5 +15,8 @@ public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
     @Query("SELECT e FROM Etudiant e WHERE e.division = :division")
     List<Etudiant> getEtudiantesByDivision(String division);
 
+    @Query("SELECT e FROM Etudiant e JOIN e.cours c WHERE c.nomCours = :nomCours")
+    List<Etudiant> findByCoursNom(String nomCours);
+
 
 }

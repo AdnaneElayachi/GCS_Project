@@ -76,6 +76,10 @@ public class EtudiantService {
         return etudiantRepository.getEtudiantesByDivision(division);
     }
 
+    public List<Etudiant> getEtudiantsByCoursNom(String nomCours) {
+        return etudiantRepository.findByCoursNom(nomCours);
+    }
+
 
 
 }

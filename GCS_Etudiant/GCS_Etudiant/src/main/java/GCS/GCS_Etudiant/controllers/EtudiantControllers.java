@@ -43,5 +43,9 @@ public class EtudiantControllers {
     public List<Etudiant> getEtudiantesByDivision(@PathVariable String division) {
         return etudiantService.getEtudiantesByDivision(division);
     }
+    @GetMapping("/cour")
+    public List<Etudiant> getEtudiantsByCours(@RequestParam String nomCours) {
+        return etudiantService.getEtudiantsByCoursNom(nomCours);
+    }
 
 }
