@@ -34,11 +34,14 @@ public class EtudiantControllers {
     }
 
 
-    @GetMapping
+    @GetMapping("/{id}")
     public List<EtudiantResponse> findEtudiantByID(Long id) throws Exception {
         return (List<EtudiantResponse>) etudiantService.findEtudiantByID(id);
     }
 
-
+    @GetMapping("/{division}")
+    public List<Etudiant> getEtudiantesByDivision(@PathVariable String division) {
+        return etudiantService.getEtudiantesByDivision(division);
+    }
 
 }

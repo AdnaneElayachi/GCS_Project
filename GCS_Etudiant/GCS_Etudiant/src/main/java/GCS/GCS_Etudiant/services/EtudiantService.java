@@ -72,4 +72,10 @@ public class EtudiantService {
                 .filter(division -> Objects.equals(division.getId(), id))
                 .findFirst();
     }
+    public List<Etudiant> getEtudiantesByDivision(String division) {
+        return etudiantRepository.getEtudiantesByDivision(division);
+    }
+
+
+
 }
