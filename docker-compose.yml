@@ -1,0 +1,81 @@
+
+version: '3'
+
+services:
+  post_gcsEtudiant:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: GCS_Etudiant
+    ports:
+      - "5432:5432"
+
+  gcsEtudiant:
+    build:
+      context: ./GCS_Etudiant
+    ports:
+      - "8085:8085"
+    depends_on:
+      - post_gcsEtudiant
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://post_gcsEtudiant:5432/GCS_Etudiant
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    healthcheck:
+      test: ["/bin/sh", "-c", "exec nc -z post_gcsEtudiant 5432"]
+      interval: 5s
+      timeout: 2s
+      retries: 100
+
+  post_gcsGadminstration:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: GCS_GAdministation
+    ports:
+      - "5432:5432"
+
+  gcsGadminstration:
+    build:
+      context: ./GCS_GAdministation
+    ports:
+      - "8085:8085"
+    depends_on:
+      - post_gcsGadminstration
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://post_gcsGadminstration:5432/GCS_GAdministation
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    healthcheck:
+      test: [ "/bin/sh", "-c", "exec nc -z post_gcsEtudiant 5432" ]
+      interval: 5s
+      timeout: 2s
+      retries: 100
+
+  post_GCS_Paiement:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: GCS_GAdministation
+    ports:
+      - "5432:5432"
+
+  GCS_Paiement:
+    build:
+      context: ./GCS_Paiement
+    ports:
+      - "8085:8085"
+    depends_on:
+      - post_GCS_Paiement
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://post_gcsGadminstration:5432/GCS_Paiement
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    healthcheck:
+      test: [ "/bin/sh", "-c", "exec nc -z post_GCS_Paiement 5432" ]
+      interval: 5s
+      timeout: 2s
+      retries: 100
